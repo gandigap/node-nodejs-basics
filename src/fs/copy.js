@@ -1,28 +1,22 @@
-import fs from 'fs/promises';
-import {constants} from 'fs';
-import {dirname, join} from 'path';
-import { fileURLToPath } from 'url';
-import { ERROR_CODES, ERROR_MESSAGES } from '../constants/errors';
+import { access, cp } from 'fs/promises';
+import { join} from 'path';
+import { ERROR_CODES, ERROR_MESSAGES } from '../constants/errors.js';
+import { getDirname } from '../utils/get-dirname.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const initFolder = 'files';
-const copyFolder = 'files_copy';
-
-const initFolderPath = join(__dirname, initFolder);
-const copyFolderPath = join(__dirname, copyFolder);
+const __dirname = getDirname(import.meta.url);
+const initFolderPath = join(__dirname, 'files');
+const copyFolderPath = join(__dirname, 'files_copy');
 
 const copy = async () => {
     try {
-        const isSourceFolderExist =  await fs.access(initFolderPath)
+        const isSourceFolderExist =  await access(initFolderPath)
                                         .then(() => true)
                                         .catch(() => false);
         if (!isSourceFolderExist) {
             throw new Error(ERROR_MESSAGES.fsFailed);
         }
 
-        await fs.cp(
+        await cp(
             initFolderPath,
             copyFolderPath,
             { recursive: true, force: false, errorOnExist: true }                

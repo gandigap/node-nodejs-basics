@@ -1,16 +1,15 @@
-import fs from 'fs/promises';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { ERROR_CODES, ERROR_MESSAGES } from '../constants/errors';
+import { access, writeFile } from 'fs/promises';
+import { join } from 'path';
+import { ERROR_CODES, ERROR_MESSAGES } from '../constants/errors.js';
+import { getDirname } from '../utils/get-dirname.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const filePath = path.join(__dirname, 'files', 'fresh.txt');
+const __dirname = getDirname(import.meta.url);
+const filePath = join(__dirname, 'files', 'fresh.txt');
 const fileContent = 'I am fresh and young';
 
 const create = async () => {
   try {
-    await fs.access(filePath);
+    await access(filePath);
     throw new Error(ERROR_MESSAGES.fsFailed);
   } catch (error) {
     if (error.code !== ERROR_CODES.eoent) {
@@ -18,7 +17,7 @@ const create = async () => {
     }
   }  
 
-  await fs.writeFile(filePath, fileContent);
+  await writeFile(filePath, fileContent);
 };
 
 await create();
