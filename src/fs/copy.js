@@ -9,10 +9,10 @@ const copyFolderPath = join(__dirname, 'files_copy');
 
 const copy = async () => {
     try {
-        const isSourceFolderExist =  await access(initFolderPath)
+        const isInitFolderExist =  await access(initFolderPath)
                                         .then(() => true)
                                         .catch(() => false);
-        if (!isSourceFolderExist) {
+        if (!isInitFolderExist) {
             throw new Error(ERROR_MESSAGES.fsFailed);
         }
 

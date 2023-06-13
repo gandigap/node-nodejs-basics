@@ -18,14 +18,8 @@ const rename = async () => {
         }
 
         await access(properFilenamePath);
-        throw new Error(ERROR_MESSAGES.fsFailed);
-
-        
-    } catch (error) {
-        if (error.code === ERROR_CODES.cpExist) {
-            throw new Error(ERROR_MESSAGES.fsFailed);
-        }
-       
+        throw new Error(ERROR_MESSAGES.fsFailed);        
+    } catch (error) {              
         if (error.code !== ERROR_CODES.eoent) {
             throw error;
         }
