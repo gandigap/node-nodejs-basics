@@ -16,7 +16,7 @@ const write = async () => {
     const handleError = () => {
       console.log('Error');
       readStream.destroy();
-      writeStream.end('Finished with error...')
+      writeStream.end('Finished with error...');
     }
     
     readStream
