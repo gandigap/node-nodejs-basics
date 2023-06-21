@@ -1,10 +1,10 @@
 const parseArgs = () => {
-    const arguments = process.argv.slice(2); 
+    const args = process.argv.slice(2); 
     const result = [];
 
-  for (let index = 0; index < arguments.length; index += 2) {
-    const argumentName = arguments[index].replace('--', '');
-    const argumentValue = arguments[index + 1];
+  for (let index = 0; index < args.length; index += 2) {
+    const argumentName = args[index].replace('--', '');
+    const argumentValue = args[index + 1];
     result.push(`${argumentName} is ${argumentValue}`);
   }
 
